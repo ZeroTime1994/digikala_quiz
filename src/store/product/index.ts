@@ -1,6 +1,7 @@
 import { Module } from "vuex";
 import { RootState } from "..";
 import { actions } from "./actions";
+import { mutations } from "./mutations";
 
 export interface Product {
   id: number;
@@ -45,4 +46,5 @@ export const product: Module<ProductState, RootState> = {
   namespaced: true,
   state: state,
   actions,
+  mutations,
 };
