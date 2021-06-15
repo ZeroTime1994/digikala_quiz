@@ -5,6 +5,7 @@ import router from "./router";
 import store from "./store";
 import "./plugins/axios";
 import VueCompositionApi from "@vue/composition-api";
+import "./assets/scss/main.scss";
 
 Vue.config.productionTip = false;
 
