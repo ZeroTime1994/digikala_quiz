@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex, { Module } from "vuex";
+import Vuex from "vuex";
 import { ProductState, product } from "./product";
 Vue.use(Vuex);
 

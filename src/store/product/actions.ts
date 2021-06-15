@@ -23,7 +23,7 @@ export const actions: ActionTree<ProductState, RootState> = {
             pager: PagerData;
           };
         }>
-      >("https://www.digikala.com/front-end/search/")
+      >("/front-end/search/")
       .then((res) => {
         const productsData = res.data.data.products;
         const filtersData = res.data.data.filters;
