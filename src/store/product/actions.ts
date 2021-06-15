@@ -26,7 +26,10 @@ export const actions: ActionTree<ProductState, RootState> = {
       >("/front-end/search/")
       .then((res) => {
         const productsData = res.data.data.products;
+
+        //TODO commit filters data to state
         const filtersData = res.data.data.filters;
+
         const pagerData = res.data.data.pager;
         const products: Product[] = productsData.map((p) => ({
           id: p.id,

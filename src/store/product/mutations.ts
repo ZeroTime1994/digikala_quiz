@@ -28,6 +28,7 @@ export const mutations: MutationTree<ProductState> = {
     state.loadingProduct = loading;
   },
 
+  //TODO Create Set Product filters data mutation
   //-- SET Product Filters
   //   [ProductMutationTypes.setProductFilters]: () => {},
 };
