@@ -30,7 +30,7 @@ export const actions: ActionTree<ProductState, RootState> = {
         const pagerData = res.data.data.pager;
         const products: Product[] = productsData.map((p) => ({
           id: p.id,
-          images: { main: p.image.main },
+          images: { main: p.images.main },
           price: {
             rrpPrice: p.price.rrp_price,
             sellingPrice: p.price.selling_price,
@@ -62,7 +62,7 @@ export interface ProductData {
     count: number;
   };
   status: string;
-  image: {
+  images: {
     main: string;
   };
   price: {
