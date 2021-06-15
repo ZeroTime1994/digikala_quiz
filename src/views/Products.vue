@@ -5,7 +5,7 @@
 import { defineComponent } from "@vue/composition-api";
 
 export default defineComponent({
-  setup() {
+  setup(_, { root }) {
     const products: string[] = [];
 
     return {
