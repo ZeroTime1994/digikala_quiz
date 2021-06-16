@@ -1,7 +1,7 @@
 <template>
   <div class="product-card">
     <img :src="imageUrl" :alt="title" />
-    <h3>{{ title }}</h3>
+    <h4>{{ title }}</h4>
   </div>
 </template>
 <script lang="ts">
@@ -24,4 +24,22 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.product-card {
+  border: 1px solid rgb(196, 196, 196);
+  padding: 0.75rem;
+  img {
+    width: 185px;
+    padding: 1.5rem;
+  }
+  h4 {
+    font-size: 0.9rem;
+    text-align: right;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 17px 0 rgba(0, 0, 0, 9%);
+    transition: box-shadow 0.5s;
+  }
+}
+</style>

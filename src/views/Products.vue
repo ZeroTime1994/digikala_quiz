@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div class="container">
     <template v-if="products">
-      <product-card
-        v-for="(product, index) in products"
-        :key="index"
-        :title="product.title"
-        :imageUrl="product.images.main"
-      />
+      <div class="product-list">
+        <product-card
+          v-for="(product, index) in products"
+          :key="index"
+          :title="product.title"
+          :imageUrl="product.images.main"
+        />
+      </div>
     </template>
   </div>
 </template>
@@ -45,3 +47,13 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="scss">
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > div {
+    flex: 20% 0 0;
+  }
+}
+</style>
