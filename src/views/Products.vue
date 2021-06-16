@@ -7,6 +7,10 @@
           :key="index"
           :title="product.title"
           :imageUrl="product.images.main"
+          :rate="product.rating.rate"
+          :rateCount="product.rating.count"
+          :sellingPrice="product.price.sellingPrice"
+          :discoundPrice="product.price.rrpPrice"
         />
       </div>
     </template>
