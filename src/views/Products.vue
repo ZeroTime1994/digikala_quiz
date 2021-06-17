@@ -85,13 +85,6 @@ export default defineComponent({
     };
 
     watch([page, perPage], () => {
-      router.push({
-        name: "products",
-        params: {
-          page: page.value.toString(),
-          perPage: perPage.value.toString(),
-        },
-      });
       fetchProducts();
     });
 
