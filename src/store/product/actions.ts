@@ -56,11 +56,13 @@ export const actions: ActionTree<ProductState, RootState> = {
     commit(ProductMutationTypes.setLoadingProductStatus, true);
 
     axios
-      .get<any, { status: number; data: { product: ProductData } }>(
-        `https://www.digikala.com/front-end/product/${productId}/`
-      )
+      .get<
+        any,
+        AxiosResponse<{ status: number; data: { product: ProductData } }>
+      >(`https://www.digikala.com/front-end/product/${productId}/`)
       .then((res) => {
-        commit(ProductMutationTypes.setProduct, res.data.product);
+        console.log(res);
+        commit(ProductMutationTypes.setProduct, res.data.data.product);
       })
       .finally(() =>
         commit(ProductMutationTypes.setLoadingProductStatus, false)

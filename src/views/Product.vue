@@ -5,14 +5,19 @@
 <script lang="ts">
 import { RootState } from "@/store";
 import { ProductActionTypes } from "@/store/product/action-types";
-import { defineComponent, onMounted } from "@vue/composition-api";
+import { computed, defineComponent, onMounted } from "@vue/composition-api";
 
 export default defineComponent({
   setup(_, { root }) {
     const store = root.$store;
     const state = store.state as RootState;
     const productId = root.$route.params.id;
-    const product = state.product?.product;
+
+    //Product data
+    const product = computed(() => state.product?.product);
+
+    //Product loading status
+    const loading = computed(() => state.product?.loadingProduct);
 
     onMounted(() => {
       store.dispatch(`product/${ProductActionTypes.fetchProduct}`, productId);
