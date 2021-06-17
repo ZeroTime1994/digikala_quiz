@@ -61,8 +61,22 @@ export const actions: ActionTree<ProductState, RootState> = {
         AxiosResponse<{ status: number; data: { product: ProductData } }>
       >(`https://www.digikala.com/front-end/product/${productId}/`)
       .then((res) => {
-        console.log(res);
-        commit(ProductMutationTypes.setProduct, res.data.data.product);
+        const productData = res.data.data.product;
+        const product: Product = {
+          id: productData.id,
+          title: productData.title,
+          images: { main: productData.images.main },
+          price: {
+            rrpPrice: productData.price.rrp_price,
+            sellingPrice: productData.price.selling_price,
+          },
+          rating: {
+            count: productData.rating.count,
+            rate: productData.rating.rate,
+          },
+          status: productData.status,
+        };
+        commit(ProductMutationTypes.setProduct, product);
       })
       .finally(() =>
         commit(ProductMutationTypes.setLoadingProductStatus, false)
