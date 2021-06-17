@@ -8,7 +8,15 @@ import { SetProductPayload } from "./mutations";
 
 export const actions: ActionTree<ProductState, RootState> = {
   //-- Fetch Products
-  [ProductActionTypes.fetchProducts]: ({ commit }) => {
+  [ProductActionTypes.fetchProducts]: (
+    { commit },
+    payload: {
+      page: number;
+      perPage: number;
+    }
+  ) => {
+    const { page, perPage } = payload;
+
     commit(ProductMutationTypes.setLoadingProductsStatus, true);
 
     axios
@@ -23,7 +31,12 @@ export const actions: ActionTree<ProductState, RootState> = {
             pager: PagerData;
           };
         }>
-      >("/front-end/search/")
+      >("/front-end/search/", {
+        params: {
+          page: page,
+          rows: perPage,
+        },
+      })
       .then((res) => {
         const productsData = res.data.data.products;
 
@@ -42,7 +55,7 @@ export const actions: ActionTree<ProductState, RootState> = {
         const pagination: Pagination = {
           currentPage: pagerData.current_page,
           totalItems: pagerData.total_items,
-          totalPages: pagerData.total_page,
+          totalPages: pagerData.total_pages,
         };
         const payload: SetProductPayload = { products, pagination };
         commit(ProductMutationTypes.setProducts, payload);
@@ -118,7 +131,7 @@ export interface SortData {
 
 export interface PagerData {
   current_page: 1;
-  total_page: number;
+  total_pages: number;
   total_items: number;
 }
 //--End--//

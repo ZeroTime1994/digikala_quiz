@@ -6,7 +6,11 @@ export const mutations: MutationTree<ProductState> = {
   //-- SET Products and Pagination
   [ProductMutationTypes.setProducts]: (state, payload: SetProductPayload) => {
     const { pagination, products } = payload;
-    state.products = products;
+    if (pagination.currentPage > 1) {
+      state.products.push(...products);
+    } else {
+      state.products = products;
+    }
     state.productsPagination = pagination;
   },
 
