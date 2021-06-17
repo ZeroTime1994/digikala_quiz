@@ -11,6 +11,7 @@
           :rateCount="product.rating.count"
           :sellingPrice="product.price.sellingPrice"
           :discoundPrice="product.price.rrpPrice"
+          :id="product.id"
         />
       </div>
     </template>
@@ -38,8 +39,6 @@ export default defineComponent({
     const loadingProducts = computed(() => state.product?.loadingProducts);
 
     onMounted(() => {
-      console.log("on Mounted");
-
       store.dispatch(`product/${ProductActionTypes.fetchProducts}`);
     });
     //--End Products

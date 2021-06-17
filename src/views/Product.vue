@@ -1,16 +1,24 @@
 <template>
-  <div>{{ id }}</div>
+  <div>{{ product }}</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
+import { RootState } from "@/store";
+import { ProductActionTypes } from "@/store/product/action-types";
+import { defineComponent, onMounted } from "@vue/composition-api";
 
 export default defineComponent({
   setup(_, { root }) {
-    const route = root.$route;
+    const store = root.$store;
+    const state = store.state as RootState;
+    const productId = root.$route.params.id;
+    const product = state.product?.product;
 
+    onMounted(() => {
+      store.dispatch(`product/${ProductActionTypes.fetchProduct}`, productId);
+    });
     return {
-      id: route.params.id,
+      product,
     };
   },
 });

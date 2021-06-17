@@ -6,13 +6,13 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Products",
+    name: "products",
     component: () =>
       import(/* webpackChunkName: "products" */ "../views/Products.vue"),
   },
   {
     path: "/product/:id",
-    name: "Product",
+    name: "product",
     component: () =>
       import(/* webpackChunkName: "product" */ "../views/Product.vue"),
   },

@@ -1,5 +1,9 @@
 <template>
-  <div class="product-card">
+  <router-link
+    :to="{ name: 'product', params: { id } }"
+    class="product-card"
+    tag="div"
+  >
     <img :src="imageUrl" :alt="title" />
     <h4>{{ title }}</h4>
     <div>
@@ -17,7 +21,7 @@
       <div></div>
       <div>{{ discoundPrice }} تومان</div>
     </div>
-  </div>
+  </router-link>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from "@vue/composition-api";
@@ -25,6 +29,10 @@ import { defineComponent, PropType } from "@vue/composition-api";
 export default defineComponent({
   name: "ProductCard",
   props: {
+    id: {
+      type: Number as PropType<number>,
+      required: true,
+    },
     title: {
       type: String as PropType<string>,
       requried: true,
