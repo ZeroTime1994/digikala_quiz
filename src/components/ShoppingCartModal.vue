@@ -16,7 +16,10 @@
                 <input v-model="p.quantity" type="number" />
               </div>
 
-              <div>
+              <div
+                @click="onRemoveProduct(p.product.id)"
+                class="remove-container"
+              >
                 <span class="mdi mdi-delete"></span>
               </div>
             </div>
@@ -28,6 +31,7 @@
 </template>
 <script lang="ts">
 import { RootState } from "@/store";
+import { CartMutationTypes } from "@/store/cart/mutation-types";
 import { computed, defineComponent, ref } from "@vue/composition-api";
 import Modal from "./Modal.vue";
 
@@ -44,9 +48,14 @@ export default defineComponent({
 
     const productsInCart = computed(() => state.cart?.products);
 
+    const onRemoveProduct = (productId: number) => {
+      store.commit(`cart/${CartMutationTypes.deleteProductInCart}`, productId);
+    };
+
     return {
       show,
       productsInCart,
+      onRemoveProduct,
     };
   },
 });
@@ -70,7 +79,10 @@ export default defineComponent({
       display: flex;
       justify-content: space-between;
       align-items: center;
-
+      .remove-container {
+        font-size: 2rem;
+        cursor: pointer;
+      }
       > div {
         padding: 0.4rem;
       }

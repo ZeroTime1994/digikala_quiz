@@ -3,6 +3,7 @@ import { CartState } from ".";
 import { Product } from "../product";
 import { CartMutationTypes } from "./mutation-types";
 import Vue from "vue";
+import { storeCartInStorage } from "@/utils/storage";
 
 export const mutations: MutationTree<CartState> = {
   [CartMutationTypes.addProductToCart]: (state, product: Product) => {
@@ -21,7 +22,6 @@ export const mutations: MutationTree<CartState> = {
         product: product,
       });
     }
-    localStorage.setItem("cart", JSON.stringify(state.products));
   },
   [CartMutationTypes.restoreCartFromLocalStorage]: (state) => {
     const cartFromLocalStorage = localStorage.getItem("cart");
@@ -31,10 +31,12 @@ export const mutations: MutationTree<CartState> = {
         quantity: number;
       }[];
       state.products = products;
+      storeCartInStorage(state.products);
     }
   },
   [CartMutationTypes.deleteProductInCart]: (state, productId: number) => {
     const products = state.products.filter((p) => p.product.id !== productId);
     state.products = products;
+    storeCartInStorage(state.products);
   },
 };
