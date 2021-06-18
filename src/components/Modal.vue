@@ -5,7 +5,7 @@
         <div class="modal-wrapper" @click.self="onCloseModal">
           <div class="modal-container" :style="{ maxWidth: maxWidth + 'px' }">
             <div class="modal-header">
-              <slot name="header"> default header </slot>
+              <slot name="header"> </slot>
             </div>
 
             <div class="modal-body">
@@ -13,12 +13,7 @@
             </div>
 
             <div class="modal-footer">
-              <slot name="footer">
-                default footer
-                <button class="modal-default-button" @click="$emit('close')">
-                  OK
-                </button>
-              </slot>
+              <slot name="footer"> </slot>
             </div>
           </div>
         </div>
@@ -67,15 +62,16 @@ export default defineComponent({
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
+    height: 100%;
+
     .modal-container {
-      width: 300px;
+      max-width: 300px;
       margin: 0px auto;
       padding: 20px 30px;
       background-color: #fff;
       border-radius: 2px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
       transition: all 0.3s ease;
-      font-family: Helvetica, Arial, sans-serif;
     }
   }
 }
