@@ -34,7 +34,7 @@
             <span class="mdi mdi-star" />
           </div>
           <div>
-            <button>خرید</button>
+            <button @click="onAddToCart">خرید</button>
           </div>
         </div>
       </div>
@@ -44,6 +44,7 @@
 
 <script lang="ts">
 import { RootState } from "@/store";
+import { CartMutationTypes } from "@/store/cart/mutation-types";
 import { ProductActionTypes } from "@/store/product/action-types";
 import { computed, defineComponent, onMounted } from "@vue/composition-api";
 
@@ -62,8 +63,19 @@ export default defineComponent({
     onMounted(() => {
       store.dispatch(`product/${ProductActionTypes.fetchProduct}`, productId);
     });
+
+    const onAddToCart = () => {
+      if (product.value) {
+        store.commit(
+          `cart/${CartMutationTypes.addProductToCart}`,
+          product.value
+        );
+      }
+    };
+
     return {
       product,
+      onAddToCart,
     };
   },
 });
