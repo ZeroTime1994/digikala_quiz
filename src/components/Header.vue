@@ -8,27 +8,43 @@
           </li>
         </ul>
       </nav>
-      <div class="cart-container">
+      <div class="cart-container" @click="onShowShoppingCart">
         <span class="mdi mdi-cart"></span>
         <span class="product-counter">{{ productCountInCart }}</span>
       </div>
     </div>
+    <shopping-cart-modal ref="shoppingCartModalRef" />
   </header>
 </template>
 <script lang="ts">
 import { RootState } from "@/store";
-import { computed, defineComponent } from "@vue/composition-api";
+import { computed, defineComponent, ref } from "@vue/composition-api";
+import ShoppingCartModal from "./ShoppingCartModal.vue";
 
 export default defineComponent({
+  components: {
+    ShoppingCartModal,
+  },
   setup(_, { root }) {
     const store = root.$store;
     const state = store.state as RootState;
 
     const productsIncart = computed(() => state.cart?.products);
     const productCountInCart = computed(() => productsIncart.value?.length);
+
+    //Shoping Cart Modal Controller
+    const shoppingCartModalRef = ref<InstanceType<typeof ShoppingCartModal>>();
+    const onShowShoppingCart = () => {
+      if (shoppingCartModalRef.value) {
+        shoppingCartModalRef.value.show = true;
+      }
+    };
+
     return {
       productsIncart,
       productCountInCart,
+      shoppingCartModalRef,
+      onShowShoppingCart,
     };
   },
 });
@@ -55,6 +71,7 @@ header {
 
     .cart-container {
       position: relative;
+      cursor: pointer;
       span {
         font-size: 2.3rem;
       }
