@@ -33,4 +33,8 @@ export const mutations: MutationTree<CartState> = {
       state.products = products;
     }
   },
+  [CartMutationTypes.deleteProductInCart]: (state, productId: number) => {
+    const products = state.products.filter((p) => p.product.id !== productId);
+    state.products = products;
+  },
 };
