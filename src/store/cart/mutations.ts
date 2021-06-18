@@ -21,5 +21,16 @@ export const mutations: MutationTree<CartState> = {
         product: product,
       });
     }
+    localStorage.setItem("cart", JSON.stringify(state.products));
+  },
+  [CartMutationTypes.restoreCartFromLocalStorage]: (state) => {
+    const cartFromLocalStorage = localStorage.getItem("cart");
+    if (cartFromLocalStorage) {
+      const products = JSON.parse(cartFromLocalStorage) as {
+        product: Product;
+        quantity: number;
+      }[];
+      state.products = products;
+    }
   },
 };

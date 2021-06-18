@@ -7,12 +7,20 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
+import { defineComponent, onMounted } from "@vue/composition-api";
 import Header from "@/components/Header.vue";
+import { CartMutationTypes } from "./store/cart/mutation-types";
 
 export default defineComponent({
   components: {
     AppHeader: Header,
+  },
+  setup(_, { root }) {
+    const store = root.$store;
+
+    onMounted(() => {
+      store.commit(`cart/${CartMutationTypes.restoreCartFromLocalStorage}`);
+    });
   },
 });
 </script>
