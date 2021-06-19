@@ -1,6 +1,10 @@
 @import "../../../node_modules/normalize.css/normalize.css";
 @import "./product";
 @import "./grid";
+
+@import "../fonts/Samim/Farsi-Digits-Without-Latin/font-face-FD-WOL.css";
+
 * {
   box-sizing: border-box;
+  font-family: Samim;
 }
