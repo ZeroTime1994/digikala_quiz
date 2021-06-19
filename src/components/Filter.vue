@@ -12,10 +12,9 @@
   </div>
 </template>
 <script lang="ts">
-import { RootState } from "@/store";
 import { ProductActionTypes } from "@/store/product/action-types";
 import { SortTypes } from "@/store/product/actions";
-import { defineComponent, ref, toRefs, watch } from "@vue/composition-api";
+import { defineComponent, ref, watch } from "@vue/composition-api";
 
 export default defineComponent({
   setup(_, { root }) {
