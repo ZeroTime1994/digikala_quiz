@@ -1,6 +1,6 @@
 <template>
   <div class="container" style="display: flex; justify-content: center">
-    <template v-if="product">
+    <template v-if="product && !loading">
       <div class="product-container">
         <div class="image-container">
           <img :src="product.images.main" :alt="product.title" />
@@ -39,16 +39,19 @@
         </div>
       </div>
     </template>
+    <loader v-else />
   </div>
 </template>
 
 <script lang="ts">
+import Loader from "@/components/Loader.vue";
 import { RootState } from "@/store";
 import { CartMutationTypes } from "@/store/cart/mutation-types";
 import { ProductActionTypes } from "@/store/product/action-types";
 import { computed, defineComponent, onMounted } from "@vue/composition-api";
 
 export default defineComponent({
+  components: { Loader },
   setup(_, { root }) {
     const store = root.$store;
     const state = store.state as RootState;
@@ -75,6 +78,7 @@ export default defineComponent({
 
     return {
       product,
+      loading,
       onAddToCart,
     };
   },
