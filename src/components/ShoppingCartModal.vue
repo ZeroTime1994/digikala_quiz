@@ -41,7 +41,7 @@ export default defineComponent({
   },
   props: {},
   setup(_, { root }) {
-    const show = ref(true);
+    const show = ref(false);
 
     const store = root.$store;
     const state = store.state as RootState;

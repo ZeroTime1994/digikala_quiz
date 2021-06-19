@@ -13,9 +13,10 @@ export const actions: ActionTree<ProductState, RootState> = {
     payload: {
       page: number;
       perPage: number;
+      searchText?: string;
     }
   ) => {
-    const { page, perPage } = payload;
+    const { page, perPage, searchText } = payload;
 
     commit(ProductMutationTypes.setLoadingProductsStatus, true);
 
@@ -35,6 +36,7 @@ export const actions: ActionTree<ProductState, RootState> = {
         params: {
           page: page,
           rows: perPage,
+          q: searchText,
         },
       })
       .then((res) => {

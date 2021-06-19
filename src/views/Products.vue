@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <search-input v-model="searchText" />
     <template v-if="products">
       <div class="product-list" ref="productListRef" id="productList">
         <product-card
@@ -25,7 +26,6 @@ import {
   onDeactivated,
   onMounted,
   ref,
-  toRefs,
   watch,
 } from "@vue/composition-api";
 
@@ -35,9 +35,9 @@ import { ProductActionTypes } from "@/store/product/action-types";
 
 //Components
 import ProductCard from "@/components/ProductCard.vue";
-
+import SearchInput from "@/components/SearchInput.vue";
 export default defineComponent({
-  components: { ProductCard },
+  components: { ProductCard, SearchInput },
   setup(_, { root }) {
     //State Vuex
     const store = root.$store;
@@ -50,11 +50,15 @@ export default defineComponent({
     const page = ref(1);
     const perPage = ref(16);
 
+    //Search
+    const searchText = ref();
+
     //fetch product func
     const fetchProducts = () => {
       store.dispatch(`product/${ProductActionTypes.fetchProducts}`, {
         page: page.value,
         perPage: perPage.value,
+        searchText: searchText.value,
       });
     };
 
@@ -96,11 +100,29 @@ export default defineComponent({
       window.removeEventListener("scroll", onScroll);
     });
 
+    watch(searchText, () => {
+      if (searchText.value !== "" && searchText.value) {
+        router.push({
+          name: "products",
+          query: {
+            q: searchText.value,
+          },
+        });
+        fetchProducts();
+      } else {
+        router.push({
+          name: "products",
+        });
+        fetchProducts();
+      }
+    });
+
     return {
       products,
       loadingProducts,
       onScroll,
       productListRef,
+      searchText,
     };
   },
 });
