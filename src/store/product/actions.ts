@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { ActionTree } from "vuex";
 import { Pagination, Product, ProductState } from ".";
 import { RootState } from "..";
@@ -21,18 +21,15 @@ export const actions: ActionTree<ProductState, RootState> = {
     commit(ProductMutationTypes.setLoadingProductsStatus, true);
 
     axios
-      .get<
-        any,
-        AxiosResponse<{
-          status: number;
-          data: {
-            filters: FilterData;
-            products: ProductData[];
-            sort: SortData;
-            pager: PagerData;
-          };
-        }>
-      >("/front-end/search/", {
+      .get<{
+        status: number;
+        data: {
+          filters: FilterData;
+          products: ProductData[];
+          sort: SortData;
+          pager: PagerData;
+        };
+      }>("/front-end/search/", {
         params: {
           page: page,
           rows: perPage,
@@ -71,10 +68,9 @@ export const actions: ActionTree<ProductState, RootState> = {
     commit(ProductMutationTypes.setLoadingProductStatus, true);
 
     axios
-      .get<
-        any,
-        AxiosResponse<{ status: number; data: { product: ProductData } }>
-      >(`https://www.digikala.com/front-end/product/${productId}/`)
+      .get<{ status: number; data: { product: ProductData } }>(
+        `https://www.digikala.com/front-end/product/${productId}/`
+      )
       .then((res) => {
         const productData = res.data.data.product;
         const product: Product = {
