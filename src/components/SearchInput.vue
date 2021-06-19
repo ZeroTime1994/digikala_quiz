@@ -40,7 +40,6 @@ export default defineComponent({
     const onChangeValue = () => {
       emit("input", searchText.value);
     };
-
     return { onChangeValue, searchText };
   },
 });

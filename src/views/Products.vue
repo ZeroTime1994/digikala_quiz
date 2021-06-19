@@ -112,6 +112,7 @@ export default defineComponent({
           router.push({
             name: "products",
             query: {
+              ...router.currentRoute.query,
               q: searchText.value,
             },
           });

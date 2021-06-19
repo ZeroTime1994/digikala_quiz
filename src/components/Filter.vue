@@ -1,10 +1,53 @@
 <template>
   <div class="filter-container">
-    <span class="active">پرفروش‌ترین</span>
-    <span>پربازدید‌ترین</span>
-    <span> مرتبط‌ترین </span>
+    <span @click="onChangeFilter(27)" :class="filter === 27 ? 'active' : ''"
+      >پرفروش‌ترین</span
+    >
+    <span :class="filter === 4 ? 'active' : ''" @click="onChangeFilter(4)"
+      >پربازدید‌ترین</span
+    >
+    <span :class="filter === 22 ? 'active' : ''" @click="onChangeFilter(22)">
+      مرتبط‌ترین
+    </span>
   </div>
 </template>
+<script lang="ts">
+import { RootState } from "@/store";
+import { ProductActionTypes } from "@/store/product/action-types";
+import { SortTypes } from "@/store/product/actions";
+import { defineComponent, ref, toRefs, watch } from "@vue/composition-api";
+
+export default defineComponent({
+  setup(_, { root }) {
+    const store = root.$store;
+    const router = root.$router;
+
+    const filter = ref<SortTypes>(SortTypes.customerRecomendation);
+    const onChangeFilter = (sort: SortTypes) => {
+      filter.value = sort;
+    };
+
+    watch(filter, () => {
+      const queries = root.$route.query;
+
+      store.dispatch(`product/${ProductActionTypes.fetchProducts}`, {
+        sort: filter.value,
+        searchText: queries.q,
+      });
+      router.push({
+        name: "products",
+        query: {
+          ...queries,
+          sort: filter.value.toString(),
+        },
+      });
+    });
+
+    return { onChangeFilter, filter };
+  },
+});
+</script>
+
 <style lang="scss" scoped>
 .filter-container {
   width: 100%;

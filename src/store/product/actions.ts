@@ -14,9 +14,10 @@ export const actions: ActionTree<ProductState, RootState> = {
       page: number;
       perPage: number;
       searchText?: string;
+      sort?: SortTypes;
     }
   ) => {
-    const { page, perPage, searchText } = payload;
+    const { page, perPage, searchText, sort } = payload;
 
     commit(ProductMutationTypes.setLoadingProductsStatus, true);
 
@@ -34,6 +35,7 @@ export const actions: ActionTree<ProductState, RootState> = {
           page: page,
           rows: perPage,
           q: searchText,
+          sort,
         },
       })
       .then((res) => {
@@ -133,3 +135,9 @@ export interface PagerData {
   total_items: number;
 }
 //--End--//
+
+export enum SortTypes {
+  "mostViews" = 4,
+  "mostRelevant" = 22,
+  "customerRecomendation" = 27,
+}
