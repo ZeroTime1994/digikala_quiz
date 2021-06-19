@@ -10,7 +10,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref } from "@vue/composition-api";
+import {
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+  watch,
+} from "@vue/composition-api";
 
 export default defineComponent({
   name: "SearchInput",
@@ -22,9 +28,15 @@ export default defineComponent({
     },
   },
 
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const searchText = ref();
+    const { value } = toRefs(props);
 
+    watch(value, () => {
+      if (value.value) {
+        searchText.value = value.value;
+      }
+    });
     const onChangeValue = () => {
       emit("input", searchText.value);
     };

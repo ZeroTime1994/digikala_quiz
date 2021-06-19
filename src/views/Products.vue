@@ -67,7 +67,6 @@ export default defineComponent({
     const pagination = computed(() => state.product?.productsPagination);
     const loadingProducts = computed(() => state.product?.loadingProducts);
 
-    onMounted(() => fetchProducts());
     //--End Products
 
     //Ininit scroll for pagination
@@ -102,13 +101,15 @@ export default defineComponent({
 
     watch(searchText, () => {
       if (searchText.value !== "" && searchText.value) {
-        router.push({
-          name: "products",
-          query: {
-            q: searchText.value,
-          },
-        });
-        fetchProducts();
+        if (searchText.value !== router.currentRoute.query.q) {
+          router.push({
+            name: "products",
+            query: {
+              q: searchText.value,
+            },
+          });
+          fetchProducts();
+        }
       } else {
         router.push({
           name: "products",
@@ -117,6 +118,12 @@ export default defineComponent({
       }
     });
 
+    onMounted(() => {
+      const queries = router.currentRoute.query;
+      if (queries.q) searchText.value = queries.q;
+    });
+
+    onMounted(() => fetchProducts());
     return {
       products,
       loadingProducts,
