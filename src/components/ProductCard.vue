@@ -1,25 +1,27 @@
 <template>
   <router-link
     :to="{ name: 'product', params: { id } }"
-    class="product-card"
-    tag="div"
+    v-slot="{ navigate }"
+    custom
   >
-    <img :src="imageUrl" :alt="title" />
-    <h4>{{ title }}</h4>
-    <div>
-      <div><span class="mdi mdi-check" /> موجود در انبار</div>
+    <div @click="navigate" class="product-card">
+      <img :src="imageUrl" :alt="title" />
+      <h4>{{ title }}</h4>
       <div>
-        <span> ({{ rateCount }}) </span> {{ rate }}
-        <span class="mdi mdi-star" />
+        <div><span class="mdi mdi-check" /> موجود در انبار</div>
+        <div>
+          <span> ({{ rateCount }}) </span> {{ rate }}
+          <span class="mdi mdi-star" />
+        </div>
       </div>
-    </div>
-    <div :class="sellingPrice !== discoundPrice ? 'has-discount' : ''">
-      <div></div>
-      <div>{{ sellingPrice }} تومان</div>
-    </div>
-    <div v-if="sellingPrice !== discoundPrice">
-      <div></div>
-      <div>{{ discoundPrice }} تومان</div>
+      <div :class="sellingPrice !== discoundPrice ? 'has-discount' : ''">
+        <div></div>
+        <div>{{ sellingPrice }} تومان</div>
+      </div>
+      <div v-if="sellingPrice !== discoundPrice">
+        <div></div>
+        <div>{{ discoundPrice }} تومان</div>
+      </div>
     </div>
   </router-link>
 </template>
