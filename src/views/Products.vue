@@ -16,6 +16,9 @@
         />
       </div>
     </template>
+    <div class="loader-container" v-if="loadingProducts">
+      <loader />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -36,8 +39,10 @@ import { ProductActionTypes } from "@/store/product/action-types";
 //Components
 import ProductCard from "@/components/ProductCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
+import Loader from "@/components/Loader.vue";
+
 export default defineComponent({
-  components: { ProductCard, SearchInput },
+  components: { ProductCard, SearchInput, Loader },
   setup(_, { root }) {
     //State Vuex
     const store = root.$store;
@@ -138,9 +143,14 @@ export default defineComponent({
 .product-list {
   display: flex;
   flex-wrap: wrap;
-
+  margin-bottom: 10rem;
   & > div {
     flex: 20% 0 0;
   }
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
 }
 </style>
