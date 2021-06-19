@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <search-input v-model="searchText" />
+    <app-filter />
     <template v-if="products">
       <div class="product-list" ref="productListRef" id="productList">
         <product-card
@@ -40,9 +41,10 @@ import { ProductActionTypes } from "@/store/product/action-types";
 import ProductCard from "@/components/ProductCard.vue";
 import SearchInput from "@/components/SearchInput.vue";
 import Loader from "@/components/Loader.vue";
+import Filter from "@/components/Filter.vue";
 
 export default defineComponent({
-  components: { ProductCard, SearchInput, Loader },
+  components: { ProductCard, SearchInput, Loader, AppFilter: Filter },
   setup(_, { root }) {
     //State Vuex
     const store = root.$store;
